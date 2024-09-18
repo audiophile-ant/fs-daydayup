@@ -1,5 +1,6 @@
 import React from 'react';
 import { Button, Flex } from 'antd';
+import { createRoot } from 'react-dom/client';
 
 const App: React.FC = () => (
   <Flex gap="middle" wrap>
@@ -7,9 +8,10 @@ const App: React.FC = () => (
       确定
     </Button>
     <Button type="primary" autoInsertSpace>
-      确定
+      确定123
     </Button>
   </Flex>
 );
 
-export default App;
+const root = createRoot(document.getElementById('root'));
+root.render(<App />);
