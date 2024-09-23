@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { createRoot } from 'react-dom/client';
-import { HashRouter  as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { HashRouter  as Router, Navigate,Route, Routes } from 'react-router-dom';
+
 import HomePage from './pages/HomePage';
 import LaunchPage from './pages/LaunchPage';
 

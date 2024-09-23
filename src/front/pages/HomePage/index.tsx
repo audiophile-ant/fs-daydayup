@@ -1,4 +1,3 @@
-import './index.css';
 
 import classNames from 'classnames';
 import React, { useEffect, useState } from 'react';

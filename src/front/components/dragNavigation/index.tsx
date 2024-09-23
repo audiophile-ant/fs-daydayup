@@ -4,85 +4,76 @@ import React, { useEffect, useRef,useState } from 'react';
 
 import Item from './navigationItem';
 
-const Menu = () => {
-    const [items, setItems] = useState([]);
-    const [status, setStatus] = useState('closed');
-    const menuRef = useRef(null);
+interface menuProps {
+    icon: string;
+		backgroundColor: string;
+}
 
-    const addItem = (icon, backgroundColor) => {
-        setItems(prevItems => [
-            ...prevItems,
-            { icon, backgroundColor, ref: React.createRef() }
-        ]);
-    };
+interface MenuProps {
+	items: menuProps[];
+}
+
+const Menu: React.FC<MenuProps> = ({items}) => {
+    const [isOpen, setIsOpen] = useState(false);
+    const childRefs  = useRef([]);
 
     const open = () => {
-        setStatus('open');
-        if (items.length === 0) return;
+        setIsOpen(true);
+        if (childRefs.current.length === 0) return;
 
-        const firstItem = items[0];
-        const menuElement = menuRef.current;
+        const firstItem = childRefs.current[0];
+        const sens = firstItem.getBoundingClientRect().left < firstItem.getBoundingClientRect().right ? 1 : -1;
+				let current = 1;
 
-        items.slice(1).forEach((item, index) => {
-            anime({
-                targets: item.ref.current,
-                left: parseInt(firstItem.ref.current.style.left, 10) + ((index + 1) * 50),
-                top: firstItem.ref.current.style.top,
-                duration: 500,
-            });
-        });
+        while(childRefs.current[current] !== null){
+					anime({
+						targets: childRefs.current[current],
+						left: parseInt(firstItem.getBoundingClientRect().left, 10) + (sens * (current * 50)),
+						top: firstItem.getBoundingClientRect().top,
+						duration: 500
+					});
+					current++
+				}
     };
 
     const close = () => {
-        setStatus('closed');
-        if (items.length === 0) return;
+				setIsOpen(false);
+        if (childRefs.current.length === 0) return;
 
-        const firstItem = items[0];
+        const firstItem = childRefs.current[0];
+				let current = 1;
 
-        items.slice(1).forEach(item => {
-            anime({
-                targets: item.ref.current,
-                left: firstItem.ref.current.style.left,
-                top: firstItem.ref.current.style.top,
-                duration: 500,
-            });
-        });
+        while(childRefs.current[current] !== null){
+					anime({
+						targets: childRefs.current[current],
+						left: firstItem.getBoundingClientRect().left,
+						top: firstItem.getBoundingClientRect().top,
+						duration: 500
+					});
+					current++
+				}
     };
 
     const handleClick = () => {
-        if (status === 'closed') {
+        if (isOpen === false) {
             open();
         } else {
             close();
         }
     };
 
-    useEffect(() => {
-        if (status === 'closed') {
-            close();
-        } else {
-            open();
-        }
-    }, [status]);
-
     return (
         <div style={{ position: 'relative', width: '100%', height: '100%' }}>
-					<div className={`menuWrapper ${status}`} onClick={handleClick}>
-            <div className="hamburgerMenu">
-                <span />
-                <span />
-                <span />
-            </div>
-          </div>
-            {items.map((item, index) => (
+            {items.map((item: any, index: number) => (
                 <Item
                     key={index}
                     icon={item.icon}
                     backgroundColor={item.backgroundColor}
-                    ref={item.ref}
-                    onMove={() => {
-                        // Handle item move
-                    }}
+                    ref={(el: any) => {childRefs.current[index] = el}}
+										preRef={index !== 0 ? childRefs.current[index - 1] : undefined}
+										nextRef={index !== items.length - 1 ? childRefs.current[index + 1] : undefined}
+										click={handleClick}
+										close={close}
                 />
             ))}
         </div>
