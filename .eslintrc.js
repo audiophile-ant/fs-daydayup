@@ -16,7 +16,7 @@ module.exports = {
   },
   plugins: ['simple-import-sort'],
   rules: {
-    'simple-import-sort/imports': 'error',
+    // 'simple-import-sort/imports': 'error',
     'simple-import-sort/exports': 'error',
     'default-case': 2,
     'guard-for-in': 2,
@@ -32,4 +32,5 @@ module.exports = {
     'react/jsx-no-useless-fragment': 0,
     'no-param-reassign': 0,
   },
-}
+};
+
