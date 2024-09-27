@@ -15,12 +15,13 @@
 	transition: .4s ease-in-out;
 	&.open {
 		height: 55px;
-		width: 350px;
+		width: 300px;
 		padding: 0 10px;
 		border-radius: 10px;
 		.menuItem {
 			display: flex;
 		}
+		// .
 		span:nth-child(1) {
 			transform: translateY(9px) rotate(135deg);
 		}
@@ -77,52 +78,36 @@
 }
 
 .menuItem{
-	// flex-grow: 1;
 	flex-shrink: 1;
 	z-index: 100;
 	display: none;
 	cursor: pointer;
 	width: 49px;
 	height: 47px;
-	position: relative;
 	border-radius: 50%;
 	align-items: center;
 	will-change: transform;
 	justify-content: center;
 	transition: .7s ease-in-out;
-	&::before{	
-		content: "";
-		z-index: -2;
-		width: 49px;
-		height: 47px;
-		top: 0  ;
-		border-radius: 24px;
-		position: absolute;
-		transform: scale(0);
-		transition: transform .7s;			
-	}
 	.icon{	
-		width: 2em;
-		height: 2em;
+		width: 26px;
+		height: 26px;
 		stroke: rgb(2, 128, 142);
 		fill: transparent;
-		stroke-width: 1pt;
+		stroke-width: 1.8px;
 		stroke-miterlimit: 10;
 		stroke-linecap: round;
 		stroke-linejoin: round;
 		stroke-dasharray: 400;			
 	}
 }
+
 .active {
-	&::before{
-		transform: scale(1);	
-		background-color: rgba(2, 128, 142, 0.8);
-		box-shadow: 0 4px 15px rgba(36, 219, 164, 0.6);
-		border: 1px solid rgb(71, 210, 176, 0.6);
-	}
 	.icon {
 		animation: strok 1.5s reverse;
 		stroke: white;
+		width: 38px;
+		height: 38px;
 		@keyframes strok {
 			100% {			
 					stroke-dashoffset: 400;		
@@ -131,9 +116,12 @@
 	}
 }
 
-
-@media screen and (max-width: 50em) {
-	.menu{
-			font-size: .8em;
-	}
+.bgCircle {
+   	position: absolute;
+	width: 49px;
+	height: 47px;
+	border-radius: 50%;
+	background: rgba(2, 128, 142, 0.8);
+	box-shadow: 0 4px 15px rgba(36, 219, 164, 0.6);
+	border: 1px solid rgb(71, 210, 176, 0.6);
 }
