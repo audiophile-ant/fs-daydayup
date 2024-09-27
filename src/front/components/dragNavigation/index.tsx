@@ -16,7 +16,9 @@ const Navigation: React.FC = () => {
 		let nowOpen = isMenuOpen;
     setIsMenuOpen(prevState => !prevState);
 		if(!nowOpen){
-			handleBgMove()
+			setTimeout(() => {
+				handleBgMove()
+			}, 600)
 		}
   };
 
@@ -25,7 +27,7 @@ const Navigation: React.FC = () => {
     const activeBox = document.querySelector('[data-active="active"]') as HTMLElement;
 
     if (bgBox && activeBox) {
-      const { left } = activeBox.getBoundingClientRect();
+      const { left, width } = activeBox.getBoundingClientRect();
       const { left: beforeLeft } = bgBox.getBoundingClientRect();
 			console.log('12321', left, beforeLeft)
 
@@ -33,19 +35,19 @@ const Navigation: React.FC = () => {
       // 使用GSAP进行动画
       gsap.to(bgBox, {
         keyframes: [
-          // {
-          //   duration: 0.3,
-          //   x: (left - beforeLeft) / 2,
-          //   width: '56px',
-          //   height: '40px',
-          //   ease: 'power1.inOut',
-          // },
           {
             duration: 0.3,
-            x: (left - beforeLeft),
+            x: (left - beforeLeft) / 2 + beforeLeft,
+            width: '56px',
+            height: '40px',
+            ease: 'none',
+          },
+          {
+            duration: 0.3,
+            x: left - 19.5,
             width: '49px', // 恢复宽度
             height: '47px', // 恢复高度
-            ease: 'power1.inOut',
+            ease: 'none',
           }
         ],
       });
