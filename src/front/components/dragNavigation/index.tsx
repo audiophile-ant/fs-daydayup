@@ -1,6 +1,6 @@
 import styles from './index.scss'
 
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 
 import { navigation } from "./constants"
 import { useUpdateEffect } from '@/front/utils/hooks';
@@ -98,7 +98,18 @@ const Navigation: React.FC = () => {
 	const handleDragStop = (e: any, data: {x: number, y: number}) => {
 		setTimeout(() => {
 			setIsDragging(false)
+			
 		}, 300)
+		const menuBox = document.querySelector('[data-menu="menu"]') as HTMLElement;
+		const viewportWidth = window.innerWidth;
+		if(menuBox.getBoundingClientRect().left > viewportWidth / 2){
+			console.log(viewportWidth - data.x)
+			menuBox.style.right = `${viewportWidth - data.x - 70}px`
+			menuBox.style.flexDirection = 'row-reverse'
+		}else {
+			// menuBox.style.left = '0'
+			menuBox.style.flexDirection = 'row'
+		}
 		setStartPosition(null)
 		const {x, y} = data
 	}
@@ -106,13 +117,14 @@ const Navigation: React.FC = () => {
 
 	const handleDrag = (e: any, data: { x: number; y: number }) => {
 		if (startPosition) {
-				const distanceX = Math.abs(data.x - startPosition.x);
-				const distanceY = Math.abs(data.y - startPosition.y);
+			const distanceX = Math.abs(data.x - startPosition.x);
+			const distanceY = Math.abs(data.y - startPosition.y);
 
-				// 只有当水平或垂直距离超过阈值时才开始拖动
-				if (distanceX > dragThreshold || distanceY > dragThreshold) {
-						setIsDragging(true); // 触发拖动状态
-				}
+			// 只有当水平或垂直距离超过阈值时才开始拖动
+			if (distanceX > dragThreshold || distanceY > dragThreshold) {
+				if(isMenuOpen) toggleMenu();
+				setIsDragging(true); // 触发拖动状态
+			}
 		}
 };
 
@@ -133,8 +145,9 @@ const Navigation: React.FC = () => {
 			onStop={(e, data) => handleDragStop(e, data)}
 			onDrag={(e, data) => handleDrag(e, data)}
 			onStart={(e) => handleDragStart(e)}
+			bounds={{ left: 0, top: 0, right: window.innerWidth - 70, bottom: window.innerHeight - 70 }}
 		>
-			<div className={classNames([styles.menuBox, { [styles.open]: isMenuOpen }])}>
+			<div data-menu="menu" className={classNames([styles.menuBox, { [styles.open]: isMenuOpen }])}>
 				<div className={styles.bgCircle} data-bgcircle="circle"/>
 			 	<div className={styles.hamburgerMenu} onClick={toggleMenu}>
 			 	  <span />
