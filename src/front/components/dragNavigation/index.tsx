@@ -17,6 +17,9 @@ const Navigation: React.FC = () => {
 	const [isDragging, setIsDragging] = useState<boolean>(false);
 	const [startPosition, setStartPosition] = useState<{ x: number; y: number } | null>(null);
   const dragThreshold = 10; // 设定阈值为10px
+	const [left, setLeft] = useState<string>('auto');
+	const [start, setStart] = useState<{ x: number; y: number } | null>({x: 0, y: 0});
+	const [right, setRight] = useState<string>('auto');
 	// 处理点击悬浮球事件
   const toggleMenu = () => {
 		if (isDragging) return;
@@ -102,12 +105,15 @@ const Navigation: React.FC = () => {
 		}, 300)
 		const menuBox = document.querySelector('[data-menu="menu"]') as HTMLElement;
 		const viewportWidth = window.innerWidth;
+		setStart({x: data.x, y: data.y})
 		if(menuBox.getBoundingClientRect().left > viewportWidth / 2){
-			console.log(viewportWidth - data.x)
-			menuBox.style.right = `${viewportWidth - data.x - 70}px`
+			console.log(viewportWidth - data.x, e)
+      setLeft('auto')
+			setRight(`${viewportWidth - 62}px`)
 			menuBox.style.flexDirection = 'row-reverse'
 		}else {
-			// menuBox.style.left = '0'
+			setLeft('8px')
+			setRight('auto')
 			menuBox.style.flexDirection = 'row'
 		}
 		setStartPosition(null)
@@ -146,8 +152,13 @@ const Navigation: React.FC = () => {
 			onDrag={(e, data) => handleDrag(e, data)}
 			onStart={(e) => handleDragStart(e)}
 			bounds={{ left: 0, top: 0, right: window.innerWidth - 70, bottom: window.innerHeight - 70 }}
+			position={{ x: start.x, y: start.y }}
 		>
-			<div data-menu="menu" className={classNames([styles.menuBox, { [styles.open]: isMenuOpen }])}>
+			<div 
+				style={{left: left, right: right }} 
+				data-menu="menu" 
+				className={classNames([styles.menuBox, { [styles.open]: isMenuOpen }])}
+			>
 				<div className={styles.bgCircle} data-bgcircle="circle"/>
 			 	<div className={styles.hamburgerMenu} onClick={toggleMenu}>
 			 	  <span />
