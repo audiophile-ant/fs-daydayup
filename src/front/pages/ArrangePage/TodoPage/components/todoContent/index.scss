@@ -1,0 +1,15 @@
+@import '../../../../../styles/base.scss'; 
+@import '../../../../../styles/common.scss'; 
+
+.todoContent {
+	width: 600px;
+	background-color: $themeColor1;
+	border: 1px solid $themeColor2;
+	border-radius: 10px;
+	padding: 10px;
+	.toolBar {
+		display: flex;
+		height: 40px;
+		background-color: white;
+	}
+}

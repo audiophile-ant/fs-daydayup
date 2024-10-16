@@ -1,6 +1,13 @@
+@import '../../styles/base.scss';
 
-// body {
-//   font-family: 'Dosis', sans-serif;
-//   background: #FF5722;
-// }
+.menu {
+	height: 40px;
+	background-color: $backgroundColor;
+}
+
+.content {
+	position: relative;
+	height: 760px;
+	background-color: $backgroundColor;
+}
 

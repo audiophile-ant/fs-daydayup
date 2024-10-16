@@ -1,25 +1,28 @@
 import styles from './index.scss'
 
-import React, { useState, useRef } from "react";
+import React, { useState } from "react";
 
-import { navigation } from "./constants"
+import { navigation } from "../../utils/constants"
 import { useUpdateEffect } from '@/front/utils/hooks';
 import classNames from 'classnames'
 import  Draggable  from 'react-draggable';
+import { useNavigate } from 'react-router-dom';
 import gsap from 'gsap';
 
 
 const Navigation: React.FC = () => {
 
-	const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
-	const [activeIndex, setActiveIndex] = useState<number>(0);
-	const [bgLeft, setBgLeft] = useState<number>(0);
-	const [isDragging, setIsDragging] = useState<boolean>(false);
-	const [startPosition, setStartPosition] = useState<{ x: number; y: number } | null>(null);
-  const dragThreshold = 10; // 设定阈值为10px
-	const [left, setLeft] = useState<string>('auto');
-	const [start, setStart] = useState<{ x: number; y: number } | null>({x: 0, y: 0});
+	const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false); // 菜单状态
+	const [activeIndex, setActiveIndex] = useState<number>(0); // 选中item的id
+	const [bgLeft, setBgLeft] = useState<number>(0); // 选中item的背景球位置
+	const [isDragging, setIsDragging] = useState<boolean>(false); // 拖动状态
+	const [startPosition, setStartPosition] = useState<{ x: number; y: number } | null>(null); // 开始拖动的位置
+	const [left, setLeft] = useState<string>('8px'); // 悬浮球left或right
 	const [right, setRight] = useState<string>('auto');
+  const dragThreshold = 10; // 设定阈值为10px
+
+	const navigate = useNavigate();
+
 	// 处理点击悬浮球事件
   const toggleMenu = () => {
 		if (isDragging) return;
@@ -94,30 +97,29 @@ const Navigation: React.FC = () => {
 	const handleNav = (index: number) => {
 		setActiveIndex(index)
 		// 跳转到对应的页面
-		
+		navigate(`/admin/${navigation[index].navAddress}`)
 	}
 
 	// 处理悬浮球拖拽影响
 	const handleDragStop = (e: any, data: {x: number, y: number}) => {
 		setTimeout(() => {
 			setIsDragging(false)
-			
 		}, 300)
+
+		// 设置/清除悬浮球left或right来控制其宽度展开方向
+		if(!isDragging) return
 		const menuBox = document.querySelector('[data-menu="menu"]') as HTMLElement;
 		const viewportWidth = window.innerWidth;
-		setStart({x: data.x, y: data.y})
 		if(menuBox.getBoundingClientRect().left > viewportWidth / 2){
-			console.log(viewportWidth - data.x, e)
       setLeft('auto')
-			setRight(`${viewportWidth - 62}px`)
+			setRight(`${viewportWidth - 56}px`)
 			menuBox.style.flexDirection = 'row-reverse'
 		}else {
-			setLeft('8px')
+ 			setLeft('0px')
 			setRight('auto')
 			menuBox.style.flexDirection = 'row'
 		}
 		setStartPosition(null)
-		const {x, y} = data
 	}
 
 
@@ -151,8 +153,7 @@ const Navigation: React.FC = () => {
 			onStop={(e, data) => handleDragStop(e, data)}
 			onDrag={(e, data) => handleDrag(e, data)}
 			onStart={(e) => handleDragStart(e)}
-			bounds={{ left: 0, top: 0, right: window.innerWidth - 70, bottom: window.innerHeight - 70 }}
-			position={{ x: start.x, y: start.y }}
+			bounds={{ left: 0, top: 0, right: window.innerWidth - 56, bottom: window.innerHeight - 100 }}
 		>
 			<div 
 				style={{left: left, right: right }} 
@@ -172,6 +173,7 @@ const Navigation: React.FC = () => {
 							className={classNames([styles.menuItem, { [styles.active]: activeIndex === index }]) }
 							data-active={ activeIndex === index ? 'active' : undefined}
 							onClick={() => handleNav(index)}
+							data-hovertip={item.name}
 						>
     	  		  <svg className={styles.icon} viewBox="0 0 24 24">
 								{item.paths.map((path: string, index: number) => (

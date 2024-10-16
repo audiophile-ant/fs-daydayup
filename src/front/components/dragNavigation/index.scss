@@ -1,3 +1,6 @@
+@import '../../styles/base.scss';
+@import '../../styles/common.scss';
+
 .menuBox {
 	width: 49px;
 	height: 47px;
@@ -5,15 +8,14 @@
 	flex-direction: row;
 	align-items: center;
 	position: absolute;
-	left: auto;
-	right: auto;
+	top: 8px;
 	justify-content: space-between;
 	border-radius: 24px;
-	border: 1px solid rgb(2, 128, 142, 0.1);
-	background: rgba(226, 254, 222, 0.8);
+	background: $themeColor1;
 	cursor: pointer;
-	box-shadow: 0 4px 4px rgba(55, 55, 55, 0.4);
 	transition: none;
+	z-index: 999;
+	@extend .boxShadow;
 	&.open {
 		height: 55px;
 		width: 300px;
@@ -43,14 +45,14 @@
 	width: 49px;
 	height: 47px;
 	flex-shrink: 0;
-
 	border-radius: 24px;
-	// border: 1px solid rgb(71, 210, 176, 0.6);
-	background: rgba(2, 128, 142, 0.8);
+	background: $themeColor;
 	cursor: pointer;
-	box-shadow: 0 4px 4px rgba(55, 55, 55, 0.4);
 	transition: .6s ease-in-out;
-	
+	box-shadow: inset 2px 2px 10px $themeColor2, 
+		inset -2px -2px 10px $themeColor3,
+		2px 2px 4px $themeColor3, 
+		-3px -3px 7px #fff;
 	span {
 		opacity: 1;
 		left: 12px;
@@ -118,11 +120,10 @@
 }
 
 .bgCircle {
-   	position: absolute;
+  position: absolute;
 	width: 49px;
 	height: 47px;
 	border-radius: 50%;
-	background: rgba(2, 128, 142, 0.8);
-	box-shadow: 0 4px 4px rgba(226, 254, 222, 0.2);
-	border: 1px solid rgb(71, 210, 176, 0.6);
+	background: $themeColor;
+	@extend .innerShadow;
 }

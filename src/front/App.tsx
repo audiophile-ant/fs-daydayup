@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { createRoot } from 'react-dom/client';
-import { HashRouter  as Router, Navigate,Route, Routes } from 'react-router-dom';
+import { HashRouter  as Router, Navigate, Route, Routes } from 'react-router-dom';
 
 import HomePage from './pages/HomePage';
 import LaunchPage from './pages/LaunchPage';
@@ -17,8 +17,9 @@ const App: React.FC = () => {
   return (
 		<Router>
       <Routes>
-        <Route path="/" element={isLaunched ? <HomePage /> : <Navigate to="/launch" />} />
+        <Route path="/admin/*" element={isLaunched ? <HomePage /> : <Navigate to="/launch" />} />
         <Route path="/launch" element={<LaunchPage />} />
+				<Route path="*" element={<Navigate to="/admin" />} />
       </Routes>
     </Router>
   );

@@ -1,0 +1,66 @@
+@import '../../../../styles/base.scss';
+@import '../../../../styles/common.scss';
+
+.nav {
+  display: inline-flex;
+  position: absolute;
+  overflow: hidden;
+  max-width: 100%;
+  background-color: $backgroundColor;
+	left: 50%;
+	bottom: 15px;
+	transform: translateX(-50%);
+  padding: 0 15px;
+  border-radius: 40px;
+	@extend .boxShadow;
+}
+
+.navItem {
+  color: #83818c;
+  padding: 15px 20px;
+  text-decoration: none;
+	white-space: nowrap;
+  transition: .3s;
+  margin: 0 6px;
+  z-index: 1;
+  font-family: 'DM Sans', sans-serif;
+	font-size: 18px;
+  font-weight: 700;
+	cursor: pointer;
+  position: relative;
+	&.isActive {
+    color: $themeColor;
+  }
+}
+
+.navItem:before {
+  content: "";
+  position: absolute;
+  bottom: -6px;
+  left: 0;
+  width: 100%;
+  height: 5px;
+  background-color: $themeColor1;
+  border-radius: 8px 8px 0 0;
+  opacity: 0;
+  transition: .3s;
+}
+
+.navItem:not(.isActive):hover:before {
+  opacity: 1;
+  bottom: 0;
+}
+
+
+.navIndicator {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  transition: .4s;
+	width: 76px;
+  height: 5px;
+  z-index: 1;
+  border-radius: 8px 8px 0 0;
+	background-color: $themeColor;
+	@extend .projectShadow;
+}

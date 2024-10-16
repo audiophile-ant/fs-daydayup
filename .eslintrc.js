@@ -31,6 +31,7 @@ module.exports = {
     '@typescript-eslint/member-ordering': 0,
     'react/jsx-no-useless-fragment': 0,
     'no-param-reassign': 0,
+    'no-return-assign': 'off',
   },
 };
 
