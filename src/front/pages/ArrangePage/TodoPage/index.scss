@@ -42,6 +42,8 @@
 			}				
 			label {
 				margin: 0 7px;
+				font-size: 16px;
+				font-weight: 700;
 				user-select: none;
 			}				
 			.input {
@@ -59,6 +61,7 @@
 				background: $themeColor2;		
 				&:after {
 					background: $themeColor;
+					@extend .projectShadow;
 				}
 			}
 		}
@@ -176,6 +179,10 @@
 				background-color: $themeColor;
 				text-align: center;
 				cursor: pointer;
+				@extend .projectShadow;
+				&:active {
+					@extend .standShadow;
+				}
 			}
 		}
 	}

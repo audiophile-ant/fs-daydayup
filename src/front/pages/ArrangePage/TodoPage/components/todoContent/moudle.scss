@@ -1,0 +1,40 @@
+@import '../../../../../styles/base.scss';
+
+:global {
+	.ant-select-dropdown.dropdown {
+		font-family: 'kaiti';
+		.ant-select-item-option-content {
+			font-size: 16px;
+			color: $themeColor;
+		}
+		font-size: 700;
+		font-size: 700;
+		.ant-select-item-option-selected {
+			background-color: $themeColor;
+			.ant-select-item-option-content {
+				color: #fff;
+			}
+		}
+	}
+	.ant-picker-dropdown.datePicker {
+		.ant-picker-cell-today .ant-picker-cell-inner::before {
+			border: 1px solid $themeColor;
+		}
+		.ant-picker-cell-range-start,
+		.ant-picker-cell-range-end {
+			.ant-picker-cell-inner {
+				background: $themeColor!important;
+			}
+		}
+
+		.ant-picker-cell-in-view.ant-picker-cell-in-range::before,
+		.ant-picker-cell-in-view.ant-picker-cell-range-end::before,
+		.ant-picker-cell-in-view.ant-picker-cell-range-start::before {
+				background-color: $themeColor1!important;
+			}
+		.ant-picker-year-btn:hover,
+		.ant-picker-month-btn:hover {
+			color: $themeColor;
+		}
+	}
+}

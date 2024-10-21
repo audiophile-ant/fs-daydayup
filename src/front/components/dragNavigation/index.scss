@@ -13,7 +13,6 @@
 	border-radius: 24px;
 	background: $themeColor1;
 	cursor: pointer;
-	transition: none;
 	z-index: 999;
 	@extend .boxShadow;
 	&.open {
