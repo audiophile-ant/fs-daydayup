@@ -1,3 +1,19 @@
+import React from 'react';
+
+import {
+  ProjectOutlined,
+  DollarOutlined,
+  CalendarOutlined,
+  UngroupOutlined,
+} from '@ant-design/icons';
+
+export const operationList = [
+  { name: '优先级', icon: <ProjectOutlined /> },
+  { name: '奖励', icon: <DollarOutlined /> },
+  { name: '截止时间', icon: <CalendarOutlined /> },
+  { name: '状态', icon: <UngroupOutlined /> },
+];
+
 export const sortType = [
   { value: '1', label: '按优先级升序' },
   { value: '2', label: '按优先级降序' },

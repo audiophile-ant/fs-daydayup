@@ -34,14 +34,18 @@
 
 [data-hovertip]:hover::after {
 	content: attr(data-hovertip);
+	display: inline-block;
 	position: absolute;
 	top: 110%;
 	left: 50%;
 	transform: translateX(-50%);
 	background-color: $themeColor;
 	color: white;
+	width: auto;
+	max-width: 100px;
+  white-space: nowrap;
+  word-wrap: break-word;
 	padding: 5px 8px;
 	border-radius: 5px;
-	white-space: nowrap;
 	font-size: 16px;
 }
