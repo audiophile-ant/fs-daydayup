@@ -1,0 +1,72 @@
+@import '../../styles/base.scss';
+
+.modal {
+	font-family: 'kaiti';
+	:global {
+		.ant-modal-content,
+		.ant-modal-title {
+			background-color: $backgroundColor;
+		}
+		.ant-form-item .ant-form-item-label {
+			font-family: 'kaiti';
+		}
+		.ant-modal-title,
+		.ant-modal-close {
+			color: $themeColor;
+			font-size: 20px;
+			font-weight: 700;
+		}
+		.ant-input-outlined {
+			background: $backgroundColor;
+			&:focus-within,
+			&:hover {
+				border-color: $themeColor;
+			}
+		}
+		.ant-form-item-required::before {
+			color: $themeColor!important;
+		}
+		.ant-btn-primary,
+		.ant-btn-primary:hover {
+			font-family: 'kaiti';
+			background-color: $themeColor!important;
+		}
+		.ant-btn-default:hover {
+			color: $themeColor!important;
+			border-color: $themeColor!important;
+		}
+		.ant-btn-default {
+			font-family: 'kaiti';
+		}
+		.ant-radio-wrapper .ant-radio-inner {
+			background-color: $backgroundColor!important;
+		}
+		.ant-radio-wrapper .ant-radio-checked .ant-radio-inner{
+			border-color: $themeColor!important;
+			background-color: $themeColor!important;
+		}
+		.ant-radio-wrapper {
+			font-family: 'kaiti';
+			&:hover {
+				.ant-radio-inner {
+					border-color: $themeColor!important;
+				}
+			}
+		}
+		.ant-picker-outlined {
+			background-color: transparent;
+			&:hover,
+			&:focus-within {
+				border-color: $themeColor!important;
+			}
+		}
+		.ant-picker-input {
+			font-family: 'kaiti';
+			input {
+				&::placeholder {
+					color: #ccc;
+				}
+			}
+		}
+	}
+}

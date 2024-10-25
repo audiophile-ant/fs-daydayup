@@ -1,0 +1,20 @@
+@import '../../styles/base.scss';
+
+:global {
+	.ant-picker-dropdown.deadline {
+		.ant-picker-cell-today .ant-picker-cell-inner::before {
+			border: 1px solid $themeColor;
+		}
+		.ant-picker-year-btn:hover,
+		.ant-picker-month-btn:hover,
+		.ant-picker-decade-btn:hover,
+		.ant-picker-now-btn {
+			color: $themeColor;
+		}
+		.ant-picker-cell-selected {
+			.ant-picker-cell-inner {
+				background: $themeColor!important;
+			}
+		}
+	}
+}

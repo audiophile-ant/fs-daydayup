@@ -5,7 +5,7 @@ import {
 	PlusCircleOutlined
 } from '@ant-design/icons';
 
-import SearchComponent from './components/search'
+import SearchComponent from '@/front/components/search'
 import TodoContent from './components/todoContent'
 
 import styles from './index.scss';

@@ -1,5 +1,7 @@
 import { Modal } from "antd";
 import React, { useEffect, useState } from "react";
+import styles from './index.scss'
+import './moudle.scss'
 
 interface baseModalProps {
   title: string;
@@ -21,6 +23,7 @@ const BasicModal = (props: baseModalProps) => {
 			okText={okText && "确定"}
 			onOk={onOk}
 			onCancel={onCancel}
+			className={styles.modal}
 		>
 			{props.children}
 		</Modal>
