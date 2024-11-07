@@ -199,6 +199,7 @@ const TodoContent: React.FC<TodoContentProps> = ({selectIndex, contentItems}) =>
 	},[])
 
 	const handleAddChange = (e: any) => {
+		if(e.key && e.key !== 'Enter') return
 		setShowModal(true);
 		setContent(e.target.value)
 		setFatherId(null)
@@ -278,7 +279,7 @@ const TodoContent: React.FC<TodoContentProps> = ({selectIndex, contentItems}) =>
 			<div className={styles.addBar}>
 				<div className={styles.addTodoBox}>
 					<EditFilled />
-					<input type='text' className={styles.addTodoInput} placeholder='添加待办事项' onBlur={e => handleAddChange(e)}/>
+					<input type='text' className={styles.addTodoInput} placeholder='添加待办事项' onBlur={e => handleAddChange(e)} onKeyPress={e => handleAddChange(e)} />
 				</div>
 			</div>  
 		</div>

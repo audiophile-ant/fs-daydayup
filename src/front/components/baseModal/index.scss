@@ -68,5 +68,24 @@
 				}
 			}
 		}
+		.ant-input-number-outlined {
+			background: transparent!important;
+			&:hover,
+			&:focus-within {
+				border: 1px solid $themeColor;
+
+			}
+		}
+		.ant-input-number-handler-down,
+		.ant-input-number-handler-up {
+			&:hover{
+				.anticon {
+					color: $themeColor;
+				}
+			}
+		}
+		.ant-input-status-error {
+			background: transparent!important;
+		}
 	}
 }

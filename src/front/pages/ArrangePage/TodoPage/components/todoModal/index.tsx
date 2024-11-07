@@ -1,9 +1,12 @@
 import React, { useEffect, useState, useRef } from 'react';
-import BasicModal from '@/front/components/baseModal';
-import { Form, Input, Radio, DatePicker, ConfigProvider } from 'antd';
+import { Form, Input, Radio, DatePicker, ConfigProvider, InputNumber } from 'antd';
 import zhCN from 'antd/locale/zh_CN';
 import 'dayjs/locale/zh-cn';
 import dayjs from 'dayjs';
+
+import BasicModal from '@/front/components/baseModal';
+import styles from './index.scss';
+
 
 dayjs.locale('zh-cn');
 
@@ -27,6 +30,7 @@ interface FieldType {
 const TodoModalPage = ({onOk, onCancle, id, visible, content, father}: todoModalPageProps) => {
 	const [form] = Form.useForm();
 	const [isEdit, setIsEdit] = useState(false);
+	const [todoContent, setTodoContent] = useState('');
 
 	useEffect(() => {
 		return () => {
@@ -43,12 +47,13 @@ const TodoModalPage = ({onOk, onCancle, id, visible, content, father}: todoModal
 				content: content || '',
 				remark: '',
 				priority: 0,
-				reward: 0,
+				reward: 1,
 				deadline: null,
 				status: 0		
 			});
+			setTodoContent(content);
 		}
-	}, [id, content, visible])
+	}, [visible])
   return (
     <BasicModal
 			onOk={onOk}
@@ -68,7 +73,7 @@ const TodoModalPage = ({onOk, onCancle, id, visible, content, father}: todoModal
     		  name="content"
 					rules={[{ required: true, message: '请输入内容!' }]}
     		>
-    		  <Input />
+    		  <Input value={todoContent} onChange={(e) => setTodoContent(e.target.value)} />
     		</Form.Item>
 				<Form.Item<FieldType>
     		  label="备注"
@@ -91,14 +96,14 @@ const TodoModalPage = ({onOk, onCancle, id, visible, content, father}: todoModal
     		  label="奖励"
     		  name="reward"
     		>
-    		  <Input />
+    		  <InputNumber precision={0} min={1} max={100} defaultValue={1} />
     		</Form.Item>
 				<Form.Item<FieldType>
     		  label="截止时间"
     		  name="deadline"
     		>
 					<ConfigProvider locale={zhCN}>
-						<DatePicker popupClassName="deadline" open/>
+						<DatePicker popupClassName="deadline"/>
 					</ConfigProvider>	
     		</Form.Item>
 				<Form.Item<FieldType>

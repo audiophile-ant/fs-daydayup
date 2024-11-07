@@ -1,4 +1,4 @@
-import type { ModuleOptions } from 'webpack'
+import type { ModuleOptions } from 'webpack';
 
 export const rules: Required<ModuleOptions>['rules'] = [
   // Add support for native node modules
@@ -34,11 +34,7 @@ export const rules: Required<ModuleOptions>['rules'] = [
     use: {
       loader: 'babel-loader',
       options: {
-        presets: [
-          '@babel/preset-env',
-          '@babel/preset-react',
-          '@babel/preset-typescript',
-        ],
+        presets: ['@babel/preset-env', '@babel/preset-react', '@babel/preset-typescript'],
       },
     },
   },
@@ -55,4 +51,16 @@ export const rules: Required<ModuleOptions>['rules'] = [
       'sass-loader',
     ],
   },
-]
+  {
+    test: /\.(png|jpe?g|gif|svg)$/i,
+    use: [
+      {
+        loader: 'file-loader',
+        options: {
+          name: '[path][name].[ext]',
+        },
+      },
+    ],
+  },
+];
+

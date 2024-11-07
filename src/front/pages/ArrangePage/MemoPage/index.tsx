@@ -7,7 +7,10 @@ const MemoPage = () => {
 		console.log('MemoPage')
 	})
   return (
-    <div className={styles.container} />
+    <div className={styles.container}>
+			<div>tool</div>
+			<div>toleranceconcerndoubleextravogantperceiveregonitiontechnique</div>
+		</div>
   );
 }
 

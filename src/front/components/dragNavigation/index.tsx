@@ -19,7 +19,7 @@ const Navigation: React.FC = () => {
 	const [startPosition, setStartPosition] = useState<{ x: number; y: number } | null>(null); // 开始拖动的位置
 	const [left, setLeft] = useState<string>('8px'); // 悬浮球left或right
 	const [right, setRight] = useState<string>('auto');
-  const dragThreshold = 10; // 设定阈值为10px
+  const dragThreshold = 20; // 设定阈值为10px
 
 	const navigate = useNavigate();
 

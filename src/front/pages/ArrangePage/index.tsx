@@ -19,7 +19,7 @@ const ArrangePage = () => {
     	  <Route path="memo" element={<MemoPage />} />
     	  <Route path="routine" element={<RoutinePage />} />
     	  <Route path="holiday" element={<HolidayPage />} />
-				<Route path="/" element={<Navigate to="todo" />} />
+				<Route path="/" element={<Navigate to="memo" />} />
     	</Routes>
     </>
   );

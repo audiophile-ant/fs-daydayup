@@ -1,0 +1,46 @@
+.front,.back{
+	width: 30px;
+	height: 44px;
+	overflow: hidden;
+	backface-visibility: hidden;
+	position: absolute;
+	transition: transform .6s linear;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+.front {
+	background: whitesmoke;
+	transform: perspective(600px) rotateY(-180deg);
+}
+.back{
+	transform: perspective(600px) rotateY(0deg); 
+}
+
+.rotated > .front{
+	transform: perspective(600px) rotateY(0deg);
+}
+.rotated > .back{ 
+	transform: perspective(600px) rotateY(180deg);
+}
+.card {
+	position: relative;
+	height: 60px;
+} 
+
+.background {
+	width: calc(100% - 5px);
+	height: calc(100% - 5px);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	box-shadow: 
+	0 0 10px rgba(0, 0, 0, 0.8),  /* 外层阴影 */
+	0 0 5px rgba(0, 0, 0, 0.5),  /* 中层阴影 */
+	inset 0 0 5px rgba(0, 0, 0, 0.5);  /* 内层阴影 */ 
+	img {
+		width: 20px;
+		height: 20px;
+		background: none;
+	}
+}
