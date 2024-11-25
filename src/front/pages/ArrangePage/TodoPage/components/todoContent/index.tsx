@@ -264,7 +264,7 @@ const TodoContent: React.FC<TodoContentProps> = ({selectIndex, contentItems}) =>
 						<div className={styles.todoList} ref={todoListRef} style={{ height: dynamicHeight + 'px' }}>
 							<TodoItem data={todoList} handleChange={handleChange} rank={0} setContent={setContent} setFatherId={setFatherId} setShowModal={setShowModal}/>
 						</div>
-						{showModal && <TodoModalPage visible={showModal} onOk={() => setShowModal(false)} onCancle={() => setShowModal(false)} father={fatherId} content={content}/>}
+						<TodoModalPage visible={showModal} onOk={() => setShowModal(false)} onCancle={() => setShowModal(false)} father={fatherId} content={content}/>
     			</div>
 				</div>
 				<div className={styles.belt} ref={beltRef}/>

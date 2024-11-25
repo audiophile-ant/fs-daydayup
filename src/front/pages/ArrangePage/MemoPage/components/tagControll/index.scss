@@ -1,0 +1,18 @@
+@import '../../../../../styles/base.scss';
+
+
+.container {
+	display: flex;
+	flex-wrap: wrap;
+	.tag {
+		border-width: 1px;
+		border-color: $themeColor;
+		cursor: pointer;
+		background-color: $themeColor;
+		color: #fff;
+	}
+	.isActive{
+		border-width: 2px;
+		transform: scale(1.2);
+	}
+}

@@ -1,5 +1,67 @@
 @import '../../../styles/base.scss';
+@import '../../../styles/common.scss';
 
 .container {
 	height: calc(100% - 84px);
+	.memoFilter {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		padding: 15px;
+		border: 2px solid $themeColor;
+		border-radius: 10px 10px 0 0;
+		background-color: $themeColor1;
+		.addMemo {
+			width: 30px;
+			height: 30px;
+			border-radius: 15px;
+			color: #fff;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			background-color: $themeColor;
+			@extend .projectShadow;
+			&:active {
+				@extend .standShadow;
+			}
+		}
+	}
+	.memoContent {
+		padding: 10px;
+		background-color: $themeColor1;
+		border: 2px solid $themeColor;
+		border-top: none;
+		height: 600px;
+		border-radius:0 0 10px 10px;
+		.item {
+			border: 2px solid $themeColor;
+			border-radius: 5px;
+			word-wrap: break-word;
+			background-color: $backgroundColor;
+			padding: 5px;
+			width: 285px;
+			display: flex;
+			flex-direction: column;
+			.infoBox {
+				margin-top: 10px;
+				display: flex;
+				justify-content: space-between;
+				.tagBox {
+					width: 60%;
+				}
+				.tag {
+					border-radius: 2px;
+					border-width: 1px;
+					border-color: $themeColor;
+					cursor: pointer;
+					background-color: $themeColor;
+					color: #fff;
+				}
+				.creatTime {
+					color: #999;
+					font-size: 14px;
+				}
+			}
+		}
+	}
 }
