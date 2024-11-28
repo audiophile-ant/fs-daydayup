@@ -1,0 +1,10 @@
+@import '../../styles/base.scss';
+
+.editInput {
+	border: none;
+	font-size: 16px;
+	background-color: $backgroundColor;
+	display: block;
+	width: 100%;
+	resize: vertical;
+}

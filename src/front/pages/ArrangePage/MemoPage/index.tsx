@@ -1,7 +1,9 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { PlusOutlined } from '@ant-design/icons'
+import _ from 'lodash'
 
 import Search from '@/front/components/search';
+import EditableDiv from '@/front/components/editableDiv';
 import TagControll from './components/tagControll';
 import WaterfallLayout from './components/waterfallLayout';
 import MemoModalPage from './components/memoModal';
@@ -25,6 +27,12 @@ const MemoPage = () => {
 		])
 	}
 
+	const handleChangeContent = (index: number, value: string) => {
+		let nowItems = _.cloneDeep(items)
+		nowItems[index].content = value
+		setItems(nowItems)
+	}
+
 	useEffect(() => {
 		init()
 	}, []);
@@ -38,7 +46,7 @@ const MemoPage = () => {
 			<div className={styles.memoContent}>
 				<WaterfallLayout>
 					{items.map((item, index) => <div className={styles.item} key={index}>
-						<div>{item.content}</div>
+						<EditableDiv initialContent={item.content} synchronizedContent={(value: string) => handleChangeContent(index, value)} />
 						<div className={styles.infoBox}>
 							<div className={styles.tagBox}>{item.tag.map((tagItem:any, index:number) => 
 								<TagControll key={index} isDisableEdit={false}/>
@@ -48,7 +56,7 @@ const MemoPage = () => {
 					</div>)}
 				</WaterfallLayout>
 			</div>
-			<MemoModalPage onOk={() => {}} onCancle={() => setShowAddMemo(false)} content="123" visible={showAddMemo}/>
+			<MemoModalPage onOk={() => {}} onCancel={() => setShowAddMemo(false)} content="123" visible={showAddMemo}/>
 		</div>
   );
 }
