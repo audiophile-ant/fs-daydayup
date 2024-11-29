@@ -6,7 +6,7 @@ import classnames from 'classnames';
 import styles from './index.scss'; // 确保引入你的CSS文件
 
 const Navbar = () => {
-  const [activeIndex, setActiveIndex] = useState(0);
+  const [activeIndex, setActiveIndex] = useState(2);
   const itemsRef = useRef([]);
   const indicatorRef = useRef(null);
 

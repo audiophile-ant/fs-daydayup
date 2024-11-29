@@ -2,13 +2,13 @@ import React, { useEffect } from 'react';
 
 import styles from './index.scss';
 
-const HolidayPage = () => {
+const PlanningPage = () => {
 	useEffect(() => {
-		console.log('HolidayPage')
+		console.log('PlanningPage')
 	})
   return (
     <div className={styles.container} />
   );
 }
 
-export default HolidayPage;
+export default PlanningPage;

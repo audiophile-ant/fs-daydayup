@@ -44,11 +44,11 @@ export const editMenu = [
     navAddress: 'memo',
   },
   {
-    name: '日常',
-    navAddress: 'routine',
+    name: '习惯',
+    navAddress: 'habits',
   },
   {
-    name: '假期',
-    navAddress: 'holiday',
+    name: '规划',
+    navAddress: 'planning',
   },
 ];

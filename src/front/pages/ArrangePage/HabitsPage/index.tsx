@@ -2,13 +2,13 @@ import React, { useEffect } from 'react';
 
 import styles from './index.scss';
 
-const RoutinePage = () => {
+const HabitsPage = () => {
 	useEffect(() => {
-		console.log('RoutinePage')
+		console.log('HabitsPage')
 	})
   return (
     <div className={styles.container} />
   );
 }
 
-export default RoutinePage;
+export default HabitsPage;

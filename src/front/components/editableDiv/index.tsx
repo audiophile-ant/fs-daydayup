@@ -15,7 +15,7 @@ const EditableDiv = ({ initialContent, synchronizedContent }: EditableDivProps) 
   };
 
   const handleBlur = () => {
-    // setIsEditing(false);
+    setIsEditing(false);
 		synchronizedContent(content)
   };
 

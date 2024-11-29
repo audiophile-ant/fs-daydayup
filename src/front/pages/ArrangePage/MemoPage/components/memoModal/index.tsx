@@ -1,6 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { Form, Input, Select } from 'antd';
-import zhCN from 'antd/locale/zh_CN';
 import 'dayjs/locale/zh-cn';
 import dayjs from 'dayjs';
 
@@ -19,11 +18,11 @@ interface memoModalPageProps {
 interface FieldType {
 	content: string;
   tag: string;
-}
+}    
 
 const MemoModalPage = ({ onOk, onCancel, visible, content }: memoModalPageProps) => {
   const [form] = Form.useForm();
-  const [memoContent, setMemoContent] = useState(content || '');
+  const [memoContent, setMemoContent] = useState(content || '');    
   const [options, setOptions] = useState([]);
 
   const handleChange = (value: string) => {
