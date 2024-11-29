@@ -32,6 +32,7 @@ module.exports = {
     'react/jsx-no-useless-fragment': 0,
     'no-param-reassign': 0,
     'no-return-assign': 'off',
+    'max-params': ['error', 4],
   },
 };
 

@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 
+import Demo from '@/front/components/demo/dnd'
 import styles from './index.scss';
 
 const HabitsPage = () => {
@@ -7,7 +8,9 @@ const HabitsPage = () => {
 		console.log('HabitsPage')
 	})
   return (
-    <div className={styles.container} />
+    <div className={styles.container} >
+			<Demo />
+		</div>
   );
 }
 
