@@ -1,13 +1,19 @@
 // 主色
 $themeColor: var(--themeColor, rgb(2, 142, 123));
-// 副色1
+// 衬托色1
 $themeColor1: var(--themeColor1, rgb(222, 254, 236));
-// 副色2
+// 衬托色2
 $themeColor2: var(--themeColor2, rgb(71, 182, 167));
+// 衬托色3
+$themeColor3: var(--themeColor3, rgb(34, 97, 91));
+// 副色1
+$secondaryColor1: var(--secondaryColor1, rgb(188, 235, 141));
+// 副色2
+$secondaryColor2: var(--secondaryColor2, rgb(125, 214, 74));
 // 副色3
-$themeColor3: var(--themeColor2, rgb(34, 97, 91));
+$secondaryColor3: var(--secondaryColor3, rgb(66, 122, 1));
 
 // 背景色
 $backgroundColor: var(--backgroundColor, rgb(228, 245, 241));
 
-$hoverColor: var(--themeColor2, rgb(163, 228, 192));
+$hoverColor: var(--hoverColor, rgb(163, 228, 192));

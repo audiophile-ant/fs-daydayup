@@ -1,0 +1,44 @@
+@import '../../../../../styles/base.scss';
+@import '../../../../../styles/common.scss';
+
+.outside {
+	width: 100%;
+	box-sizing: border-box;
+	padding-bottom: 4px;
+	position: relative;
+	.inside {
+		position: relative;
+		box-sizing: border-box;	
+		display: flex;
+		justify-content: center;
+		.timeItem {
+			width: 60%;
+			background-color: $secondaryColor2;
+			border-radius: 10px;
+			display: flex;
+			align-items: center;
+			padding: 10px;
+			border: 1px solid $secondaryColor1;
+			box-shadow: inset 2px 2px 10px $secondaryColor3, 
+									inset -2px -2px 10px $secondaryColor1;        
+		}
+		.endTime{
+			position: absolute;
+			bottom: 0;
+			left: 0;
+			font-family: Serif;
+			font-size: 14px;
+		}
+	}
+	.startTime {
+		position: absolute;
+			bottom: -17px;
+			left: 0;
+			font-family: Serif;
+			font-size: 14px;
+	}
+}
+
+.borderBottom{
+	border-bottom: 1px dashed #000;
+}

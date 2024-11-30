@@ -1,5 +1,21 @@
 @import '../../../styles/base.scss';
 
 .container {
-	height: 100%;
+	padding-top: 40px;
+	height: 576px;
+	display: flex;
+	justify-content: space-between;
+	.timeArrange {
+		background: $themeColor1;
+		padding: 8px;
+		width: 400px;
+		height: 100%;
+		border-radius: 10px;
+		.timeItem {
+			user-select: none;
+    	padding: 16px;
+    	margin: 0 50px 8px;
+    	background: white;
+		}
+	}
 }

@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import Demo from '../HabitsPage/components/resizableTime'
 
 import styles from './index.scss';
 
@@ -7,7 +8,10 @@ const PlanningPage = () => {
 		console.log('PlanningPage')
 	})
   return (
-    <div className={styles.container} />
+    <div className={styles.container} >
+		<Demo />
+
+		</div>
   );
 }
 

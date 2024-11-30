@@ -28,3 +28,21 @@ export function getTextColor(bgColor: String) {
     return 'white';
   }
 }
+
+// 根据盒子高度获取代表时间
+export function convertMinutesToHoursAndMinutes(minutes: number) {
+  const totalMinutes = minutes * 2.5;
+  const hours = Math.floor(totalMinutes / 60);
+  const remainingMinutes = totalMinutes % 60;
+
+  return {
+    hours: hours,
+    minutes: remainingMinutes,
+  };
+}
+
+// 补零函数
+
+export function zeroFill(number: number) {
+  return number < 10 ? `0${number}` : `${number}`;
+}
