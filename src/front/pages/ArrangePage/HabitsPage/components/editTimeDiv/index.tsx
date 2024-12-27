@@ -1,44 +1,32 @@
 import React, { useState, useEffect } from 'react';
+import _ from 'lodash'
 
-const EditTimeDiv = ({ hours, minutes, onChange }) => {
-    // 将输入的小时和分钟转换为字符串，并在前面补0
-    const formatTime = (val) => val.toString().padStart(2, '0');
+interface EditTimeDivProps {
+	hours: number
+	minutes: number
+	onChange: (hours: number, minutes: number) => void
+}
 
-    // 初始状态
+const EditTimeDiv = ({ hours, minutes, onChange }: EditTimeDivProps) => {
+    // 补0
+    const formatTime = (val: number) => val.toString().padStart(2, '0');
+
     const [editMode, setEditMode] = useState(null); // 'hours' | 'minutes' | null
     const [localHours, setLocalHours] = useState(formatTime(hours));
     const [localMinutes, setLocalMinutes] = useState(formatTime(minutes));
 
-    // 处理滚轮事件
-    const handleWheel = (event, type) => {
-        event.preventDefault();
-        const delta = Math.sign(event.deltaY);
-        const change = (type === 'hours') ? (Number(delta)): (delta * 5);
-
-        let newValue;
-        if (type === 'hours') {
-            newValue = parseInt(localHours, 10) + change;
-            newValue = Math.max(0, Math.min(23, newValue));
-            setLocalHours(formatTime(newValue));
-        } else {
-            newValue = parseInt(localMinutes, 10) + change;
-            newValue = Math.max(0, Math.min(59, newValue));
-            setLocalMinutes(formatTime(newValue));
-        }
-    };
-
     // 处理手动输入
-    const handleInputChange = (event, type) => {
-        const value = event.target.value;
-        if (type === 'hours') {
-            setLocalHours(formatTime(value));
-        } else {
-            setLocalMinutes(formatTime(value));
-        }
-    };
-
+		const handleSimpleChange = (event: any, type: 'hours' | 'minutes') => {
+			const value = event.target.value;
+			if (type === 'hours') {
+					setLocalHours(value);
+			} else {
+					setLocalMinutes(value);
+			}
+		};
+		
     // 失去焦点时更新外部状态
-    const handleBlur = (type) => {
+    const handleBlur = (type: 'hours' | 'minutes') => {
         if (type === 'hours') {
             const newValue = parseInt(localHours, 10);
             if (!isNaN(newValue) && newValue >= 0 && newValue <= 23) {
@@ -58,7 +46,7 @@ const EditTimeDiv = ({ hours, minutes, onChange }) => {
     };
 
     // 处理双击事件
-    const handleDoubleClick = (type) => {
+    const handleDoubleClick = (type: 'hours' | 'minutes') => {
         setEditMode(type);
     };
 
@@ -73,7 +61,7 @@ const EditTimeDiv = ({ hours, minutes, onChange }) => {
                 <input
                     type="text"
                     value={localHours}
-                    onChange={(e) => handleInputChange(e, 'hours')}
+                    onChange={(e) => handleSimpleChange(e, 'hours')}
                     onBlur={() => handleBlur('hours')}
                     style={{ width: '20px', textAlign: 'center' }}
                     autoFocus
@@ -81,7 +69,6 @@ const EditTimeDiv = ({ hours, minutes, onChange }) => {
             ) : (
                 <span
                     onDoubleClick={() => handleDoubleClick('hours')}
-                    onWheel={(e) => handleWheel(e, 'hours')}
                     style={{ cursor: 'pointer' }}
                 >
                     {localHours}
@@ -92,7 +79,7 @@ const EditTimeDiv = ({ hours, minutes, onChange }) => {
                 <input
                     type="text"
                     value={localMinutes}
-                    onChange={(e) => handleInputChange(e, 'minutes')}
+                    onChange={(e) => handleSimpleChange(e, 'minutes')}
                     onBlur={() => handleBlur('minutes')}
                     style={{ width: '20px', textAlign: 'center' }}
                     autoFocus
@@ -100,7 +87,6 @@ const EditTimeDiv = ({ hours, minutes, onChange }) => {
             ) : (
                 <span
                     onDoubleClick={() => handleDoubleClick('minutes')}
-                    onWheel={(e) => handleWheel(e, 'minutes')}
                     style={{ cursor: 'pointer' }}
                 >
                     {localMinutes}

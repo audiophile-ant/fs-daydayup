@@ -1,10 +1,10 @@
-import React, { useState, useEffect, useRef } from 'react';
+import { convertHoursAndMinutesToHeight, convertMinutesToHoursAndMinutes } from '@/front/utils/basicMethod';
+import classNames from 'classnames';
 import { Resizable } from 're-resizable';
-import classNames from 'classnames'
+import React, { useEffect, useRef, useState } from 'react';
+import EditTimeDiv from '../editTimeDiv';
+import styles from './index.scss';
 
-import styles from './index.scss'
-import { convertMinutesToHoursAndMinutes } from '@/front/utils/basicMethod'
-import EditTimeDiv from '../editTimeDiv'
 
 interface ResizableDivProps {
 	isLast: boolean
@@ -16,42 +16,82 @@ interface ResizableDivProps {
 }
 const ResizableDiv = ({isLast, provided, data, isDraging, isResizing, resize}: ResizableDivProps) => {
   const [height, setHeight] = useState(40);
-  const [outsideHeight, setOutsideHeight] = useState(44);
+  const [outsideHeight, setOutsideHeight] = useState(50);
 	const itemRef = useRef(null)
 	const insideRef = useRef(null)
 	const outsideRef = useRef(null)
 	const [topDistance, setTopDistance] = useState<number>(0)
 	const [endTime, setEndTime] = useState<[number, number]>([0, 0])
 	const [startTime, setStartTime] = useState<[number, number]>([0, 0])
+	const [totalTime, setTotalTime] = useState<string>('00:20')
+	const [preChangeHeight, setPreChangeHeight] = useState<number | null>(null)
 
-  const handleResizeStop = (e: any, direction: any, ref: any, d: any) => {
-    const newHeight = height + d.height;
-    const nearestMultipleOf4 = Math.round(newHeight / 4) * 4;
-    setHeight(nearestMultipleOf4);
-		resize(false)
+	// 内外部拖动改变高度
+	const handleResize = (e: any, direction: any, ref: any, d: any) => {
+    let newHeight = preChangeHeight + d.height;  
+		if(newHeight % 2 !== 0){
+			newHeight += 1
+		}
+    setHeight(newHeight);
+		if(isLast){
+			setOutsideHeight(newHeight + 4)
+		}
   };
-
-	const handleResizeOutsideStop = (e: any, direction: any, ref: any, d: any) => {
-		const nearestMultipleOf4 = Math.round(d.height / 4) * 4;
-    const newOutHeight = outsideHeight + nearestMultipleOf4;
+	const handleResizeOutside = (e: any, direction: any, ref: any, d: any) => {
+    let newOutHeight = preChangeHeight + d.height;
+		if(newOutHeight % 2 !== 0){
+			newOutHeight += 1
+		}
 		setOutsideHeight(newOutHeight)
-		resize(false)
-  };
-
-	const updateEndTime = (hours: number, minutes: number) => {
-		setEndTime([hours, minutes])
+	}
+	// 记录拖动前高度 
+	const handleResizeStart = (type: 'outside' | 'inside') => {
+		resize(true)
+		if(type === 'outside'){
+			setPreChangeHeight(outsideHeight)
+		}else {
+			setPreChangeHeight(height)
+		}
 	}
 
+	// 更新编辑时间内容 
+	const updateEndTime = (hours: number, minutes: number) => {
+		setEndTime([hours, minutes])
+		const nowheight = convertHoursAndMinutesToHeight(hours, minutes)
+		setHeight(nowheight - topDistance)
+		if(isLast){
+			setOutsideHeight(nowheight - topDistance + 4)
+		}
+	}
+	const updateStartTime = (hours: number, minutes: number) => {
+		setStartTime([hours, minutes])
+		const nowheight = convertHoursAndMinutesToHeight(hours, minutes)
+		setOutsideHeight(nowheight - topDistance)
+	}
+
+	// 时间补零
+	const formatTime = (val: number) => val.toString().padStart(2, '0');
+
+	// 监听变形和排序更新时间
 	useEffect(() => {
 		const endDistance = height + topDistance
 		const { hours, minutes } = convertMinutesToHoursAndMinutes(endDistance)
-		setEndTime([hours, minutes])
+			setEndTime([hours, minutes])
+			const { hours: totalHours, minutes: totalMinutes } = convertMinutesToHoursAndMinutes(height)
+			let totalTime = formatTime(totalHours) + ':' + formatTime(totalMinutes)
+			setTotalTime(totalTime)
 	}, [topDistance, height])
+
+	useEffect(() => {
+		const startDistance = outsideHeight + topDistance
+		const { hours, minutes } = convertMinutesToHoursAndMinutes(startDistance)
+			setStartTime([hours, minutes])
+	}, [topDistance, outsideHeight])
 
 	useEffect(() => {
     if (isResizing === false && isDraging === false) {
       const rect = itemRef.current.getBoundingClientRect();
-      const distance = rect.top - 88;
+      const distance = rect.top - 226;
 			setTopDistance(distance)
     }
   }, [isResizing, isDraging]);
@@ -76,8 +116,9 @@ const ResizableDiv = ({isLast, provided, data, isDraging, isResizing, resize}: R
 				minHeight={height}
 				ref={outsideRef}
 				className={classNames([styles.outside, {[styles.borderBottom]: !isDraging && !isLast}])}
-    	  onResizeStop={handleResizeOutsideStop} 
-    	  onResizeStart={() => resize(true)}
+    	  onResizeStop={() => resize(false)} 
+    	  onResize={handleResizeOutside} 
+    	  onResizeStart={() => handleResizeStart('outside')}
     	  enable={{
     	    top: false,
     	    right: false,
@@ -98,12 +139,13 @@ const ResizableDiv = ({isLast, provided, data, isDraging, isResizing, resize}: R
 						width: '100%',
 						height,
 					}}
-					maxHeight={isLast ? 576 - topDistance : outsideHeight}
-					minHeight={28}
+					maxHeight={isLast ? 480 - topDistance : outsideHeight}
+					minHeight={30}
 					ref={insideRef}
 					className={classNames([styles.inside, {[styles.borderBottom]: !isDraging}])}
-					onResizeStop={handleResizeStop}
-					onResizeStart={() => resize(true)}
+					onResizeStop={() => resize(false)}
+					onResizeStart={() => handleResizeStart('inside')}
+					onResize={handleResize}
 					enable={{
 						top: false,
 						right: false,
@@ -118,9 +160,10 @@ const ResizableDiv = ({isLast, provided, data, isDraging, isResizing, resize}: R
     	  	<div className={styles.timeItem} ref={itemRef} {...provided.dragHandleProps}>
     	  	  {data.content}
     	  	</div>
-					{!isDraging && <div className={styles.endTime}><EditTimeDiv hours={endTime[0]} minutes={endTime[1]} onChange={(hours:number, minutes:number) => updateEndTime(hours, minutes)}/></div>}
+					<div className={styles.totalTime}>时长 {totalTime}</div>
+					{!isDraging && <div className={styles.endTime}><EditTimeDiv hours={endTime[0]} minutes={endTime[1]} onChange={updateEndTime}/></div>}
 				</Resizable>
-				{(!isDraging && !isLast) && <div className={styles.startTime}>11:11</div>}
+				{(!isDraging && !isLast) && <div className={styles.startTime}><EditTimeDiv hours={startTime[0]} minutes={startTime[1]} onChange={updateStartTime}/></div>}
     	</Resizable>
 		</div>
 			

@@ -31,7 +31,7 @@ export function getTextColor(bgColor: String) {
 
 // 根据盒子高度获取代表时间
 export function convertMinutesToHoursAndMinutes(minutes: number) {
-  const totalMinutes = minutes * 2.5;
+  const totalMinutes = minutes;
   const hours = Math.floor(totalMinutes / 60);
   const remainingMinutes = totalMinutes % 60;
 
@@ -39,6 +39,17 @@ export function convertMinutesToHoursAndMinutes(minutes: number) {
     hours: hours,
     minutes: remainingMinutes,
   };
+}
+
+// 根据时间推算高度
+export function convertHoursAndMinutesToHeight(hours: number, minutes: number) {
+  // 将小时转换为分钟
+  const totalMinutes = hours * 60 + minutes;
+
+  // 根据时间推算高度
+  const heightMinutes = totalMinutes;
+
+  return heightMinutes;
 }
 
 // 补零函数
